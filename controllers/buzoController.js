@@ -60,6 +60,56 @@ const buzoController = {
             })
         }
     },
+    update: async (req, res) => {
+        const { id } = req.params;
+      
+        try{
+          let buzoUpdate = await buzo.findByIdAndUpdate(
+            {_id: id},
+            req.body
+          );
+          if (buzoUpdate) {
+            res.status(200).json({
+              message: "you have update a buzo",
+              success: true,
+            });
+          }else{
+            res.status(404).json({
+              message: "the buzo to update was not found",
+              success: false,
+            });
+          }
+        } catch (error) {
+          console.log(error);
+          res.status(400).json({
+            message: "error",
+            success: false,
+          })
+        }
+      },
+      delete: async (req, res) => {
+        const { id } = req.params;
+        try {
+          let buzoDelete = await buzo.findByIdAndDelete({_id: id });
+          if (buzoDelete){
+            res.status(200).json({
+              message: "You have delete a buzo",
+              success: true,
+            });
+          }else {
+            res.status(404).json({
+              message: "The buzo to delete was not found",
+              success: false,
+            });
+          }
+        }catch (error) {
+          console.log(error);
+          res.status(400).json({
+            message: "error",
+            success: false,
+          })
+        }
+      }
 }
 
 module.exports = buzoController

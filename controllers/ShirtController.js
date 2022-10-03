@@ -1,6 +1,5 @@
 const Shirt = require('../models/Shirt')
 
-
 const shirtController = {
 
   create: async (req, res) => {
@@ -41,7 +40,56 @@ const shirtController = {
       res.status(400).json({ message: 'Error', success: false })
     }
   },
-
+  update: async (req, res) => {
+    const { id } = req.params;
+  
+    try{
+      let ShirtUpdate = await shirt.findByIdAndUpdate(
+        {_id: id},
+        req.body
+      );
+      if (ShirtUpdate) {
+        res.status(200).json({
+          message: "you have update a shirt",
+          success: true,
+        });
+      }else{
+        res.status(404).json({
+          message: "The shirt to update was not found",
+          success: false,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({
+        message: "error",
+        success: false,
+      })
+    }
+  },
+  delete: async (req, res) => {
+    const { id } = req.params;
+    try {
+      let shirtDelete = await shirt.findByIdAndDelete({_id: id });
+      if (shirtDelete){
+        res.status(200).json({
+          message: "You have delete a shirt",
+          success: true,
+        });
+      }else {
+        res.status(404).json({
+          message: "The shirt to delete was not found",
+          success: false,
+        });
+      }
+    }catch (error) {
+      console.log(error);
+      res.status(400).json({
+        message: "error",
+        success: false,
+      })
+    }
+  }
 }
 
 module.exports = shirtController
