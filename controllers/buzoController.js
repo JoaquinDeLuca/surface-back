@@ -1,9 +1,9 @@
-import buzo from ('../models/Buzos')
+const Buzo = require('../models/Buzos')
 
 const buzoController = {
     create: async (req, res) => {
         try {
-            const buzo = await new buzo(req.body).save()
+            const buzo = await new Buzo(req.body).save()
             res.status(201).json({
                 message: 'Buzo created',
                 succsess: true,
@@ -27,31 +27,31 @@ const buzoController = {
         }
 
         try {
-        if( !query.price ){
-            buzos = await buzo.find();
-            res.status(200).json({
-                message: 'showing all buzos',
-                response: buzos,
-                success: true
-            })
-            return;
-        }else if(query.price === 'upward'){
-            buzos = await buzo.find().sort({price: 1});
-            res.status(200).json({
-                message: 'showing buzos by upward price',
-                response: buzos,
-                success: true
-            })
-            return;
-        }else{
-            buzos = await buzo.find().sort({price: -1});
-            res.status(200).json({
-                message: 'showing buzos by falling price',
-                response: buzos,
-                success: true
-            })
-            return;
-        }
+            if (!query.price) {
+                buzos = await Buzo.find();
+                res.status(200).json({
+                    message: 'showing all buzos',
+                    response: buzos,
+                    success: true
+                })
+                return;
+            } else if (query.price === 'upward') {
+                buzos = await Buzo.find().sort({ price: 1 });
+                res.status(200).json({
+                    message: 'showing buzos by upward price',
+                    response: buzos,
+                    success: true
+                })
+                return;
+            } else {
+                buzos = await Buzo.find().sort({ price: -1 });
+                res.status(200).json({
+                    message: 'showing buzos by falling price',
+                    response: buzos,
+                    success: true
+                })
+                return;
+            }
         } catch (error) {
             console.log(error);
             res.status(400).json({
