@@ -6,7 +6,7 @@ var logger = require('morgan');
 require('dotenv').config()
 require('./config/dataBase')
 
-
+const port = process.env.PORT || 3000;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+app.listen(console.log('connect to port: ' + port));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
