@@ -1,6 +1,7 @@
 const User = require("../models/User")
 const crypto = require('crypto')
 const bcryptjs = require('bcryptjs')
+const sendMail = require('./sendMail')
 
 const userController = {
     signUp: async (req, res) => {
@@ -17,10 +18,10 @@ const userController = {
                     password = bcryptjs.hashSync(password, 10)
 
                     user = await new User({name, lastName, email, password: [password], photo, role, logged, verified, from: [from], code}).save()
-                    // agregar funcion para envío de mail
+                    sendMail(email, code)
                     res.status(201).json({
-                        message: 'User signed up',
-                        success: true
+                      message: "User signed up succesfully, please verify your email and log in.",
+                      success: true,
                     })
                 } else {
                     password = bcryptjs.hashSync(password, 10)
@@ -58,7 +59,30 @@ const userController = {
                 success: false
             })
         }
-    }
+    },
+    verifyMail: async (req, res) => {
+        const { code } = req.params
+        try {
+          let user = await User.findOne({ code })
+          if (user) {
+            user.verified = true
+            await user.save()
+            res.status("200").redirect(301, 'http://localhost:3000/')
+    
+                } else {
+                    res.status("404").json({
+                        message: "This mail does not belong to an account.",
+                        success: false,
+                    })
+                }
+            } catch (error) {
+                console.log(error)
+                res.status("400").json({
+                    message: "Error",
+                    success: false,
+                })
+            }
+        },
 }
 
 module.exports = userController;
