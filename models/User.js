@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     verified: {type:Boolean, required:true}, 
     from: [{type:String, required:true}], 
     code: {type:String, required:true},
-    logged: { type:String, required: true}
+    logged: { type:Boolean, required: true}
 })
 
 const User = mongoose.model('users', userSchema);
