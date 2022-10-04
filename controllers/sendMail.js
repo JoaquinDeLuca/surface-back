@@ -41,7 +41,7 @@ const sendMail = async (mail, code) => {
     html:
     `<div>
     <h1>Hi! ${mail}</h1>
-    <a href='http://localhost:4000/auth/verify/${code}'>click to verify your account!</a>
+    <a href='http://localhost:4000/auth//verification/${code}'>click to verify your account!</a>
     </div>`
         
     }
