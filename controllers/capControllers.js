@@ -89,8 +89,8 @@ const capControllers = {
     const { id } = req.params;
 
     try {
-      let CapUpdate = await Cap.findByIdAndUpdate({ _id: id }, req.body);
-      if (CapUpdate) {
+      let capUpdate = await Cap.findByIdAndUpdate({ _id: id }, req.body);
+      if (capUpdate) {
         res.status(200).json({
           message: "you have update a cap",
           success: true,
@@ -109,11 +109,11 @@ const capControllers = {
       });
     }
   },
-  delete: async (req, res) => {
+  deleteCap: async (req, res) => {
     const { id } = req.params;
     try {
       let capDelete = await Cap.findByIdAndDelete({ _id: id });
-      if (buzoDelete) {
+      if (capDelete) {
         res.status(200).json({
           message: "You have delete a cap",
           success: true,

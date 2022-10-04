@@ -8,7 +8,7 @@ const userController = {
         let { name, lastName, email, password, photo, role } = req.body;
 
         try {
-            let user = await User.findOne({mail})
+            let user = await User.findOne({email})
             if (!user) {
                 let logged = false
                 let verified = false
@@ -60,29 +60,125 @@ const userController = {
             })
         }
     },
+
     verifyMail: async (req, res) => {
         const { code } = req.params
         try {
-          let user = await User.findOne({ code })
-          if (user) {
-            user.verified = true
-            await user.save()
-            res.status("200").redirect(301, 'http://localhost:3000/')
-    
-                } else {
-                    res.status("404").json({
-                        message: "This mail does not belong to an account.",
-                        success: false,
-                    })
-                }
-            } catch (error) {
-                console.log(error)
-                res.status("400").json({
-                    message: "Error",
+            let user = await User.findOne({ code: code})
+            if (user) {
+                user.verified = true
+                await user.save()
+                res.redirect('http://localhost:3000/')
+            } else {
+                res.status(404).json({
+                    message: 'Email has not account yet',
                     success: false,
                 })
             }
-        },
+        } catch (erorr) {
+            console.log(error)
+            res.status(400).json({
+                message: 'Could not verify account',
+                success: false,
+            })
+        }
+    },
+    
+    signIn: async (req, res) => {
+        const { email, password, from } = req.body
+        try {
+            const user = await User.findOne({ email })
+
+            if (!user) { // Usuario no existe
+                res.status(404).json({
+                    message: 'This user is not registred, please sign up',
+                    success: false
+                })
+            } else if (user.verified) { // Usuario existe y está verificado
+                const checkPass = user.password.filter((passwordElement) => bcryptjs.compareSync(password, passwordElement))
+
+                if (from == 'form') { // Ingresa por form
+                    if (checkPass.length > 0) { // Contraseña coincide
+                        const loginUser = {
+                            id: user._id,
+                            name: user.name,
+                            email: user.email,
+                            role: user.role,
+                            photo: user.photo
+                        }
+                        user.loggedIn = true
+                        await user.save()
+
+                        res.status(200).json({
+                            success: true,
+                            response: {user: loginUser},
+                            message: 'Welcome ' + user.name
+                        })
+                    } else { // Contraseña NO coincide
+                        res.status(400).json({
+                            success: false,
+                            message: 'Username or password incorrect'
+                        })
+                    }
+                } else { // Ingresa por Red Social
+                    if (checkPass.length > 0) { // Contraseña coincide
+                        const loginUser = {
+                            id: user._id,
+                            name: user.name,
+                            email: user.email,
+                            role: user.role,
+                            photo: user.photo
+                        }
+                        user.loggedIn = true
+                        await user.save()
+
+                        res.status(200).json({
+                            success: true,
+                            response: {user: loginUser},
+                            message: 'Welcome ' + user.name
+                        })
+                    } else { // Contraseña NO coincide
+                        res.status(400).json({
+                            success: false,
+                            message: 'Invalid credentials'
+                        })
+                    }
+                }
+            } else { // Usuario existe y NO está verificado
+                res.status(400).json({
+                    success: false,
+                    message: 'Please, verify your email account and try again'
+                })
+            }
+        } catch(error) {
+            console.log(error)
+            res.status(400).json({
+                succes: false,
+                message: 'sign in error try again later'
+            })
+        }
+    },
+
+    signOut: async (req, res) => {
+        const { _id } = req.body;
+        try {
+            const user = await User.findOne({ _id });
+
+            user.loggedIn = false;
+            await user.save();
+
+            res.status(200).json({
+            message: "Good bye " + user.name + " " + user.lastName,
+            success: true,
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(400).json({
+            success: false,
+            message: "Sign out error, try again later",
+            });
+        }
+    },
 }
 
 module.exports = userController;
