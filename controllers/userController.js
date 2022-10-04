@@ -81,6 +81,81 @@ const userController = {
                 success: false,
             })
         }
+    },
+    
+    signIn: async (req, res) => {
+        const { email, password, from } = req.body
+        try {
+            const user = await User.findOne({ email })
+
+            if (!user) { // Usuario no existe
+                res.status(404).json({
+                    message: 'This user is not registred, please sign up',
+                    success: false
+                })
+            } else if (user.verified) { // Usuario existe y está verificado
+                const checkPass = user.password.filter((passwordElement) => bcryptjs.compareSync(password, passwordElement))
+
+                if (from == 'form') { // Ingresa por form
+                    if (checkPass.length > 0) { // Contraseña coincide
+                        const loginUser = {
+                            id: user._id,
+                            name: user.name,
+                            email: user.email,
+                            role: user.role,
+                            photo: user.photo
+                        }
+                        user.loggedIn = true
+                        await user.save()
+
+                        res.status(200).json({
+                            success: true,
+                            response: {user: loginUser},
+                            message: 'Welcome ' + user.name
+                        })
+                    } else { // Contraseña NO coincide
+                        res.status(400).json({
+                            success: false,
+                            message: 'Username or password incorrect'
+                        })
+                    }
+                } else { // Ingresa por Red Social
+                    if (checkPass.length > 0) { // Contraseña coincide
+                        const loginUser = {
+                            id: user._id,
+                            name: user.name,
+                            email: user.email,
+                            role: user.role,
+                            photo: user.photo
+                        }
+                        user.loggedIn = true
+                        await user.save()
+
+                        res.status(200).json({
+                            success: true,
+                            response: {user: loginUser},
+                            message: 'Welcome ' + user.name
+                        })
+                    } else { // Contraseña NO coincide
+                        res.status(400).json({
+                            success: false,
+                            message: 'Invalid credentials'
+                        })
+                    }
+                }
+            } else { // Usuario existe y NO está verificado
+                res.status(400).json({
+                    success: false,
+                    message: 'Please, verify your email account and try again'
+                })
+            }
+        } catch(error) {
+            console.log(error)
+            res.status(400).json({
+                succes: false,
+                message: 'sign in error try again later'
+            })
+        }
     }
 }
 
