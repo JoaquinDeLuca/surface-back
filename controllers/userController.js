@@ -156,7 +156,28 @@ const userController = {
                 message: 'sign in error try again later'
             })
         }
-    }
+    },
+
+    signOut: async (req, res) => {
+        const { _id } = req.body;
+        try {
+            const user = await User.findOne({ _id });
+
+            user.loggedIn = false;
+            await user.save();
+
+            res.status(200).json({
+            message: "Good bye " + user.name + " " + user.lastName,
+            success: true,
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(400).json({
+            success: false,
+            message: "Sign out error, try again later",
+            });
+        }
+    },
 }
 
 module.exports = userController;
