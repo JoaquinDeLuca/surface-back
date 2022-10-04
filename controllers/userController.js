@@ -58,6 +58,29 @@ const userController = {
                 success: false
             })
         }
+    },
+
+    verifyMail: async (req, res) => {
+        const { code } = req.params
+        try {
+            let user = await User.findOne({ code: code})
+            if (user) {
+                user.verified = true
+                await user.save()
+                res.redirect('http://localhost:3000/')
+            } else {
+                res.status(404).json({
+                    message: 'Email has not account yet',
+                    success: false,
+                })
+            }
+        } catch (erorr) {
+            console.log(error)
+            res.status(400).json({
+                message: 'Could not verify account',
+                success: false,
+            })
+        }
     }
 }
 
