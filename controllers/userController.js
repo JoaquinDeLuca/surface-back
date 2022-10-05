@@ -1,13 +1,14 @@
 const User = require("../models/User")
 const crypto = require('crypto')
 const bcryptjs = require('bcryptjs')
+const sendMail = require('./sendMail')
 
 const userController = {
     signUp: async (req, res) => {
         let { name, lastName, email, password, photo, role } = req.body;
 
         try {
-            let user = await User.findOne({mail})
+            let user = await User.findOne({email})
             if (!user) {
                 let logged = false
                 let verified = false
@@ -17,10 +18,10 @@ const userController = {
                     password = bcryptjs.hashSync(password, 10)
 
                     user = await new User({name, lastName, email, password: [password], photo, role, logged, verified, from: [from], code}).save()
-                    // agregar funcion para envío de mail
+                    sendMail(email, code)
                     res.status(201).json({
-                        message: 'User signed up',
-                        success: true
+                      message: "User signed up succesfully, please verify your email and log in.",
+                      success: true,
                     })
                 } else {
                     password = bcryptjs.hashSync(password, 10)
