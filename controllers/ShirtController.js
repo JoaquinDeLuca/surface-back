@@ -13,6 +13,32 @@ const shirtController = {
     }
   },
 
+  readID: async (req, res) => {
+    const { id } = req.params;
+    try {
+      let shirt = await Shirt.findOne({ _id: id });
+
+      if (shirt) {
+        res.status(200).json({
+          message: "You get one shirt",
+          response: shirt,
+          success: true,
+        });
+      } else {
+        res.status(404).json({
+          message: "Your shirt could not be found",
+          success: false,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({
+        message: "Syntax error or others",
+        success: false,
+      });
+    }
+  },
+
   readAll: async (req, res) => {
     let shirts;
     let query = {};
