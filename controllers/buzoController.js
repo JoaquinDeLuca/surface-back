@@ -18,6 +18,32 @@ const buzoController = {
     }
   },
 
+  readID: async (req, res) => {
+    const { id } = req.params;
+    try {
+      let buzo = await Buzo.findOne({ _id: id });
+
+      if (buzo) {
+        res.status(200).json({
+          message: "You get one buzo",
+          response: buzo,
+          success: true,
+        });
+      } else {
+        res.status(404).json({
+          message: "Your buzo could not be found",
+          success: false,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({
+        message: "Syntax error or others",
+        success: false,
+      });
+    }
+  },
+
   readAll: async (req, res) => {
     let buzos;
     let query = {};
