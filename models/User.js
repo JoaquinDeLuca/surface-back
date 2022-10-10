@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
   from: [{ type: String, required: true }],
   code: { type: String, required: true },
   buyer: { type: Boolean, required: true },
+  logged: { type: Boolean, required: true },
 });
 
 const User = mongoose.model("users", userSchema);
