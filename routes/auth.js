@@ -12,6 +12,6 @@ const {
 router.post('/signup', signUp)
 router.post('/signin', signIn)
 router.post('/signout', signOut)
-router.post('/verification/:code', verifyMail)
+router.get('/verification/:code', verifyMail)
 
 module.exports = router

@@ -15,16 +15,16 @@ const validator = Joi.object({
       .required().error(new Error("Invalid email address")),
     photo: Joi.string().uri().required().error(new Error("Invalid photo url.")),
     password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{6,30}$')).required().error(new Error("Password must be at least 6 characters long, containing letters and/or numbers.")),
-    role: Joi.string().min(3).max(15).required(),
     from: Joi.string().min(3).max(15).required()
   })
 
 
 const userController = {
     signUp: async (req, res) => {
-        let { name, lastName, email, password, photo, role } = req.body;
+        let { name, lastName, from, email, password, photo } = req.body;
 
         try {
+
             let result = await validator.validateAsync(req.body)
             let user = await User.findOne({email})
             if (!user) {
@@ -34,8 +34,10 @@ const userController = {
 
                 if (from === 'form') {
                     password = bcryptjs.hashSync(password, 10)
+                    role = 'user'
+                    buyer = false
 
-                    user = await new User({name, lastName, email, password: [password], photo, role, logged, verified, from: [from], code}).save()
+                    user = await new User({name, lastName, email, password: [password], photo, buyer, role, logged, verified, from: [from], code}).save()
                     sendMail(email, code)
                     res.status(201).json({
                       message: "User signed up succesfully, please verify your email and log in.",
@@ -81,20 +83,24 @@ const userController = {
 
     verifyMail: async (req, res) => {
         const { code } = req.params
+        console.log(code)
+        let user = await User.findOne({ code: code})
         try {
-            let user = await User.findOne({ code: code})
             if (user) {
                 user.verified = true
                 await user.save()
                 res.redirect('http://localhost:3000/')
             } else {
+                console.log(code)
+
                 res.status(404).json({
                     message: 'Email has not account yet',
                     success: false,
                 })
             }
-        } catch (erorr) {
-            console.log(error)
+        } catch (err) {
+            console.log(code)
+            console.log(err + code)
             res.status(400).json({
                 message: 'Could not verify account',
                 success: false,
