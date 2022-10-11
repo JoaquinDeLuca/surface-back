@@ -5,7 +5,7 @@ const concurseSchema = new mongoose.Schema({
   description: { type: String, required: true },
   photo: { type: String, required: true },
   likes: { type: Array, required: true },
-  course: { type: Array, required: true },
+  course: { type: String, required: true },
 });
 
 const Concurse = mongoose.model("concurses", concurseSchema);
