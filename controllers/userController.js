@@ -134,7 +134,7 @@ const userController = {
                             {
                                 id: user._id,
                                 role: user.role,
-                                mail: user.mail,
+                                mail: user.email,
                                 photo: user.photo,
                                 name: user.name,
                             },
@@ -198,17 +198,25 @@ const userController = {
     },
 
     signOut: async (req, res) => {
-        const { _id } = req.body;
+        const { id } = req.body;
         try {
-            const user = await User.findOne({ _id });
+            const user = await User.findOne({ _id: id });
 
-            user.loggedIn = false;
-            await user.save();
+            if(user){
+                user.logged = false
+                await user.save();
 
-            res.status(200).json({
-            message: "Good bye " + user.name + " " + user.lastName,
-            success: true,
-            });
+                res.status(200).json({
+                message: "Good bye " + user.name + " " + user.lastName,
+                success: true,
+                });
+            }else{
+                res.status(400).json({
+                    message: "user dont found",
+                    success: false,
+                })
+            }
+            
         } catch (error) {
             console.log(error);
             res.status(400).json({
