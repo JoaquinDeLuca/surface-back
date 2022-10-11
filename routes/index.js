@@ -2,7 +2,7 @@ var express = require("express");
 const shirt = require("./shirt");
 const cap = require("./cap");
 const buzo = require("./buzo");
-const user = require("./auth");
+// const user = require("./auth");
 const concurse = require("./concurse");
 var router = express.Router();
 
@@ -14,6 +14,6 @@ router.get("/", function (req, res, next) {
 router.use("/tshirts", shirt);
 router.use("/caps", cap);
 router.use("/buzos", buzo);
-router.use("/auth", user);
+// router.use("/auth", user);
 router.use("/concurses", concurse);
 module.exports = router;
