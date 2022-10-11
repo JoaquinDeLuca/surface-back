@@ -111,7 +111,7 @@ const userController = {
     signIn: async (req, res) => {
         const { email, password, from } = req.body
         try {
-            const user = await User.findOne({ email })
+            const user = await User.findOne({ email: email })
 
             if (!user) { // Usuario no existe
                 res.status(404).json({
@@ -130,13 +130,27 @@ const userController = {
                             role: user.role,
                             photo: user.photo
                         }
-                        user.loggedIn = true
+                        const token = jwt.sign(
+                            {
+                                id: user._id,
+                                role: user.role,
+                                mail: user.mail,
+                                photo: user.photo,
+                                name: user.name,
+                            },
+                            process.env.KEY_JWT,
+                            {expiresIn: 60*60*24}
+                            )
+                        user.logged = true
                         await user.save()
 
                         res.status(200).json({
-                            success: true,
-                            response: {user: loginUser},
-                            message: 'Welcome ' + user.name
+                            succes: true,
+                            response: { 
+                                user: loginUser,
+                                token: token,
+                            },
+                            message: 'welcome ' + user.name,
                         })
                     } else { // Contraseña NO coincide
                         res.status(400).json({
@@ -203,6 +217,50 @@ const userController = {
             });
         }
     },
+
+    itsBuyer: async (req, res) => {
+        const {email} = req.body;
+        try {
+            const user = await User.findOne({ email: email });
+            user.buyer = true;
+            await user.save();
+
+            res.status(200).json({
+                message: `${email} its now a buyer`,
+                success: true,
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(400).json({
+            success: false,
+            message: "Someone was wrong",
+            });
+        }
+    },
+
+    verifyToken: (req, res) => {
+        if (req.user !== null){
+            res.status(200).json({
+                success:true,
+                response:{
+                    user: {
+                        id: req.user.userId,
+                        name: req.user.name,
+                        email: req.user.email,
+                        role: req.user.role,
+                        photo:req.user.photo
+                    }
+                },
+                message: 'Welcome' + req.user.name+'!'
+            })
+        }else {
+            res.json({
+                success:false,
+                message: "Sign in please!"
+            })
+        }
+    }
+    
 }
 
 module.exports = userController;
