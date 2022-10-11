@@ -7,17 +7,17 @@ const postController = {
     let { userId } = req.user; // viene de passport?
 
     try {
-      let posts = await Posts.findOne({ _id: postId });
+      let posts = await Post.findOne({ _id: postId });
 
       if (posts && posts.likes.includes(userId)) {
-        posts.likes.pull(id);
+        posts.likes.pull(userId);
         await posts.save();
         res.status(200).json({
-          message: "Post disliked",
+          message: "Like removed",
           success: true,
         });
       } else if (!posts.likes.includes(userId)) {
-        posts.likes.push(id);
+        posts.likes.push(userId);
         await posts.save();
         res.status(200).json({
           message: "Post liked",
