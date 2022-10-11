@@ -8,5 +8,5 @@ const concurseSchema = new mongoose.Schema({
   course: { type: Array, required: true },
 });
 
-const User = mongoose.model("concurses", userSchema);
+const User = mongoose.model("concurses", concurseSchema);
 module.exports = User;
