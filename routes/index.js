@@ -4,6 +4,7 @@ const cap = require("./cap");
 const buzo = require("./buzo");
 const user = require("./auth");
 const concurse = require("./concurse");
+const products = require("./products");
 var router = express.Router();
 
 /* GET home page. */
@@ -16,4 +17,5 @@ router.use("/caps", cap);
 router.use("/buzos", buzo);
 router.use("/auth", user);
 router.use("/concurses", concurse);
+router.use("/products", products);
 module.exports = router;
