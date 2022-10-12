@@ -4,7 +4,7 @@ const concurseSchema = new mongoose.Schema({
   name: { type: mongoose.Types.ObjectId, ref: "users" },
   description: { type: String, required: true },
   photo: { type: String, required: true },
-  likes: { type: Array, required: true },
+  likes: [{ type: String, required: true }],
   college: { type: String, required: true},
   course: { type: String, required: true },
 });
