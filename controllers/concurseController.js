@@ -1,29 +1,33 @@
 const Concurse = require("../models/Concurse");
+const User = require("../models/User")
 
 const concurseController = {
   create: async (req, res) => {
-    const buyer = req.body.buyer;
+    const {name} = req.body;
+
+    const user = await User.findOne({_id : name})
     //Esto debe venir del usuario authenticado que nos inyecta Passport en el request.
-    if (!buyer) {
+    if (!user.buyer) {
       return res.status(400).json({
         message: "User is not a buyer",
         success: false,
       });
-    }
-
-    try {
-      const concurse = await new Concurse(req.body).save();
-      res.status(201).json({
-        message: "Concurse created",
-        success: true,
-        id: concurse._id,
-      });
-    } catch (error) {
-      console.log(error);
-      res.status(400).json({
-        message: error.message,
-        success: false,
-      });
+    } 
+    else {
+      try {
+        const concurse = await new Concurse(req.body).save();
+        res.status(201).json({
+          message: "Concurse created",
+          success: true,
+          id: concurse._id,
+        });
+      } catch (error) {
+        console.log(error);
+        res.status(400).json({
+          message: error.message,
+          success: false,
+        });
+      }
     }
   },
   getAll: async (req, res) => {
