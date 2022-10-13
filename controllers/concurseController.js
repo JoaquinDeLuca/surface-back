@@ -6,13 +6,19 @@ const concurseController = {
     const {name} = req.body;
 
     const user = await User.findOne({_id : name})
+    const concurse = await Concurse.find({name : name})
     //Esto debe venir del usuario authenticado que nos inyecta Passport en el request.
     if (!user.buyer) {
       return res.status(400).json({
         message: "User is not a buyer",
         success: false,
       });
-    } 
+    } else if(concurse){
+      return res.status(400).json({
+        message: "This user has a post created",
+        success: false,
+      });
+    }
     else {
       try {
         const concurse = await new Concurse(req.body).save();
@@ -33,7 +39,7 @@ const concurseController = {
   getAll: async (req, res) => {
     // tengo(uno o muchos) o no tengo([])
     try {
-      const concurses = await Concurse.find();
+      const concurses = await Concurse.find().populate('name',{name: 1, email: 1, photo: 1});
 
       res.status(201).json({
         message:
@@ -103,6 +109,30 @@ const concurseController = {
         success: false,
       });
     }
+  },
+  getTopThree: async (req, res) => {
+    try{
+      let concurses = await Concurse.find().populate('name',{name: 1, email: 1, photo: 1}).sort({likes: -1})
+      if (concurses){
+        res.status(200).json({
+          message: "you get top three posts",
+          response: concurses.slice(0,3),
+          success: true,
+        })
+      }else {
+        res.status(404).json({
+          message: "Courses dont found",
+          success: false,
+        });
+      }
+    }catch(err){
+      console.log(err);
+      res.status(400).json({
+        message: "error",
+        success: false,
+      });
+    }
+    
   },
   //Incluir si quien lo creo es User o Admin (passport):
   deleteConcurse: async (req, res) => {
