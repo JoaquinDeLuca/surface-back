@@ -81,6 +81,75 @@ const userController = {
         }
     },
 
+    createAdmin: async (req, res) => {
+        let { name, lastName, from, email, password, photo } = req.body;
+        const { userRole } = req.body;
+
+        const admin = await User.findOne({role : userRole});
+        try {
+            if(admin){
+                let result = await validator.validateAsync({name, lastName, from, email, password, photo})
+                let user = await User.findOne({email})
+            if (!user) {
+                let logged = false
+                let verified = false
+                let code = crypto.randomBytes(15).toString('hex')
+
+                if (from === 'form') {
+                    password = bcryptjs.hashSync(password, 10)
+                    role = 'admin'
+                    buyer = false
+
+                    user = await new User({name, lastName, email, password: [password], photo, buyer, role, logged, verified, from: [from], code}).save()
+                    sendMail(email, code)
+                    res.status(201).json({
+                        message: "User signed up succesfully, please verify your email and log in.",
+                        success: true,
+                    })
+                } else {
+                    password = bcryptjs.hashSync(password, 10)
+                    verified = true
+
+                    user = await new User({name, lastName, email, password: [password], photo, role, logged, verified, from: [from], code}).save()
+
+                    res.status(201).json({
+                        message: 'User signed up from ' + from,
+                        success: true
+                    })
+                }
+            } else {
+                if (user.from.includes(from)) {
+                    res.status(200).json({
+                        message: 'user already exists',
+                        success: false
+                    })
+                } else {
+                    user.from.push(from)
+                    user.verified = true
+                    password = bcryptjs.hashSync(password, 10)
+                    user.password.push(password)
+                    await user.save()
+                    res.status(201).json({
+                        message: 'user signed upfrom ' + from,
+                        success: true
+                    })
+                }
+            }
+            }else{
+                res.status(400).json({
+                    message: 'usted no es administrador',
+                    success: false
+                })
+            }
+        } catch(error) {
+            console.log(error)
+            res.status(400).json({
+                message: 'could not signed up',
+                success: false
+            })
+        }
+    },
+
     verifyMail: async (req, res) => {
         const { code } = req.params
         console.log(code)
