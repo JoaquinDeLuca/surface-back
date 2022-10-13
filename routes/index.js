@@ -15,7 +15,6 @@ router.get("/", function (req, res, next) {
 router.use("/tshirts", shirt);
 router.use("/caps", cap);
 router.use("/buzos", buzo);
-// router.use("/auth", user);
 router.use("/concurses", concurse);
 router.use("/products", products);
 module.exports = router;
