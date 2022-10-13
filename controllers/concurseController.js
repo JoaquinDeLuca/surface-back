@@ -36,6 +36,41 @@ const concurseController = {
       }
     }
   },
+  likeDislikePost: async (req, res) => {
+    let { postId, userId } = req.body;
+    
+    let posts = await Concurse.findOne({ _id: postId });
+
+    try {
+
+      if (posts && posts.likes.includes(userId)) {
+        posts.likes.pull(userId);
+        await posts.save();
+        res.status(200).json({
+          message: "Like removed",
+          success: true,
+        });
+      } else if (!posts.likes.includes(userId)) {
+        posts.likes.push(userId);
+        await posts.save();
+        res.status(200).json({
+          message: "Post liked",
+          success: true,
+        });
+      } else {
+        res.status(404).json({
+          message: "Itinerary not found",
+          success: true,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({
+        message: "error cant be like/dislike",
+        success: false,
+      });
+    }
+  },
   getAll: async (req, res) => {
     // tengo(uno o muchos) o no tengo([])
     try {
