@@ -25,7 +25,7 @@ const userController = {
 
         try {
 
-            //  let result = await validator.validateAsync(req.body)
+            //let result = await validator.validateAsync(req.body)
             let user = await User.findOne({email})
             if (!user) {
                 let logged = false
@@ -88,7 +88,7 @@ const userController = {
         const admin = await User.findOne({role : userRole});
         try {
             if(admin){
-                // let result = await validator.validateAsync({name, lastName, from, email, password, photo})
+                //   let result = await validator.validateAsync({name, lastName, from, email, password, photo})
                 let user = await User.findOne({email})
             if (!user) {
                 let logged = false
