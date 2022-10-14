@@ -17,6 +17,6 @@ router.get("/:id", readID);
 router.get("/", getAll);
 router.patch('/like',likeDislikePost)
 router.patch("/:id", update);
-router.delete("/:id", deleteConcurse);
+router.delete("/", deleteConcurse);
 
 module.exports = router;

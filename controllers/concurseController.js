@@ -6,7 +6,7 @@ const concurseController = {
     const {name} = req.body;
 
     const user = await User.findOne({_id : name})
-    const concurse = await Concurse.find({name : name})
+    const concurse = await Concurse.findOne({name : name})
     //Esto debe venir del usuario authenticado que nos inyecta Passport en el request.
     if (!user.buyer) {
       return res.status(400).json({
@@ -171,7 +171,7 @@ const concurseController = {
   },
   //Incluir si quien lo creo es User o Admin (passport):
   deleteConcurse: async (req, res) => {
-    const { id } = req.params;
+    const { id } = req.body;
     try {
       let concurseDelete = await Concurse.findByIdAndDelete({ _id: id });
       if (concurseDelete) {

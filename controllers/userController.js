@@ -197,7 +197,8 @@ const userController = {
                             name: user.name,
                             email: user.email,
                             role: user.role,
-                            photo: user.photo
+                            photo: user.photo, 
+                            buyer: user.buyer
                         }
                         const token = jwt.sign(
                             {
@@ -206,6 +207,7 @@ const userController = {
                                 mail: user.email,
                                 photo: user.photo,
                                 name: user.name,
+                                buyer: user.buyer
                             },
                             process.env.KEY_JWT,
                             {expiresIn: 60*60*24}
@@ -234,7 +236,8 @@ const userController = {
                             name: user.name,
                             email: user.email,
                             role: user.role,
-                            photo: user.photo
+                            photo: user.photo,
+                            buyer: user.buyer
                         }
                         user.loggedIn = true
                         await user.save()
