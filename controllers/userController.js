@@ -25,7 +25,7 @@ const userController = {
 
         try {
 
-            // let result = await validator.validateAsync(req.body)
+            //  let result = await validator.validateAsync(req.body)
             let user = await User.findOne({email})
             if (!user) {
                 let logged = false
