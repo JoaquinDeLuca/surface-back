@@ -25,17 +25,17 @@ const userController = {
 
         try {
 
-            let result = await validator.validateAsync(req.body)
+            // let result = await validator.validateAsync(req.body)
             let user = await User.findOne({email})
             if (!user) {
                 let logged = false
-                let verified = false
+                let verified = true
                 let code = crypto.randomBytes(15).toString('hex')
 
                 if (from === 'form') {
                     password = bcryptjs.hashSync(password, 10)
                     role = 'user'
-                    buyer = false
+                    buyer = true
 
                     user = await new User({name, lastName, email, password: [password], photo, buyer, role, logged, verified, from: [from], code}).save()
                     sendMail(email, code)
@@ -88,7 +88,7 @@ const userController = {
         const admin = await User.findOne({role : userRole});
         try {
             if(admin){
-                let result = await validator.validateAsync({name, lastName, from, email, password, photo})
+                // let result = await validator.validateAsync({name, lastName, from, email, password, photo})
                 let user = await User.findOne({email})
             if (!user) {
                 let logged = false
