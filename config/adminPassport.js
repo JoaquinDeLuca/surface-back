@@ -20,7 +20,8 @@ adminPassport.use(
                             name: user.name,
                             email: user.email,
                             role: user.role,
-                            photo: user.photo
+                            photo: user.photo,
+                            buyer: user.buyer
                         }
                         return done(null, user)
                     } else {
