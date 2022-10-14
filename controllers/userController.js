@@ -2,21 +2,21 @@ const User = require("../models/User")
 const crypto = require('crypto')
 const bcryptjs = require('bcryptjs')
 const sendMail = require('./sendMail')
-const Joi = require('Joi')
+// const Joi = require('Joi')
 const jwt = require('jsonwebtoken')
 
-const validator = Joi.object({
-    name: Joi.string().pattern(/^[a-zA-Zñ ]+$/).min(3).max(15).required().error(new Error('Name must have between 3 and 15 characters, letters only.')),
-    lastName: Joi.string().pattern(/^[a-zA-Zñ ]+$/).min(3).max(15).required().error(new Error('Last name must have between 3 and 15 characters, letters only.')),
-    email: Joi.alternatives().try(Joi.string()
-      .lowercase()
-      .email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "ar", "org"] } }),
-    )
-      .required().error(new Error("Invalid email address")),
-    photo: Joi.string().uri().required().error(new Error("Invalid photo url.")),
-    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{6,30}$')).required().error(new Error("Password must be at least 6 characters long, containing letters and/or numbers.")),
-    from: Joi.string().min(3).max(15).required()
-  })
+// const validator = Joi.object({
+//     name: Joi.string().pattern(/^[a-zA-Zñ ]+$/).min(3).max(15).required().error(new Error('Name must have between 3 and 15 characters, letters only.')),
+//     lastName: Joi.string().pattern(/^[a-zA-Zñ ]+$/).min(3).max(15).required().error(new Error('Last name must have between 3 and 15 characters, letters only.')),
+//     email: Joi.alternatives().try(Joi.string()
+//       .lowercase()
+//       .email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "ar", "org"] } }),
+//     )
+//       .required().error(new Error("Invalid email address")),
+//     photo: Joi.string().uri().required().error(new Error("Invalid photo url.")),
+//     password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{6,30}$')).required().error(new Error("Password must be at least 6 characters long, containing letters and/or numbers.")),
+//     from: Joi.string().min(3).max(15).required()
+//   })
 
 
 const userController = {
