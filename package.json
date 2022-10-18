@@ -2,7 +2,7 @@
   "name": "surface-back",
   "version": "0.0.0",
   "private": true,
-  "main": "index.js",
+  "main": "app.js",
   "engines": {
     "node": "16.x"
   },
