@@ -2,7 +2,7 @@ const User = require("../models/User")
 const crypto = require('crypto')
 const bcryptjs = require('bcryptjs')
 const sendMail = require('./sendMail')
-const Joi = require('Joi')
+const Joi = require('joi')
 const jwt = require('jsonwebtoken')
 
 const validator = Joi.object({
