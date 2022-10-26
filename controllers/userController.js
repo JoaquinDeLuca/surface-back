@@ -2,7 +2,7 @@ const User = require("../models/User")
 const crypto = require('crypto')
 const bcryptjs = require('bcryptjs')
 const sendMail = require('./sendMail')
-const Joi = require('Joi')
+const Joi = require('joi')
 const jwt = require('jsonwebtoken')
 
 const validator = Joi.object({
@@ -29,7 +29,7 @@ const userController = {
             let user = await User.findOne({email})
             if (!user) {
                 let logged = false
-                let verified = false
+                let verified = true
                 let code = crypto.randomBytes(15).toString('hex')
 
                 if (from === 'form') {
@@ -40,8 +40,8 @@ const userController = {
                     user = await new User({name, lastName, email, password: [password], photo, buyer, role, logged, verified, from: [from], code}).save()
                     sendMail(email, code)
                     res.status(201).json({
-                      message: "User signed up succesfully, please verify your email and log in.",
-                      success: true,
+                        message: "User signed up succesfully, please verify your email and log in.",
+                        success: true,
                     })
                 } else {
                     password = bcryptjs.hashSync(password, 10)
@@ -88,7 +88,7 @@ const userController = {
         const admin = await User.findOne({role : userRole});
         try {
             if(admin){
-                let result = await validator.validateAsync({name, lastName, from, email, password, photo})
+                //   let result = await validator.validateAsync({name, lastName, from, email, password, photo})
                 let user = await User.findOne({email})
             if (!user) {
                 let logged = false
@@ -197,7 +197,8 @@ const userController = {
                             name: user.name,
                             email: user.email,
                             role: user.role,
-                            photo: user.photo
+                            photo: user.photo, 
+                            buyer: user.buyer
                         }
                         const token = jwt.sign(
                             {
@@ -206,6 +207,7 @@ const userController = {
                                 mail: user.email,
                                 photo: user.photo,
                                 name: user.name,
+                                buyer: user.buyer
                             },
                             process.env.KEY_JWT,
                             {expiresIn: 60*60*24}
@@ -234,7 +236,8 @@ const userController = {
                             name: user.name,
                             email: user.email,
                             role: user.role,
-                            photo: user.photo
+                            photo: user.photo,
+                            buyer: user.buyer
                         }
                         user.loggedIn = true
                         await user.save()
