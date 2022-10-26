@@ -29,7 +29,7 @@ const userController = {
             let user = await User.findOne({email})
             if (!user) {
                 let logged = false
-                let verified = true
+                let verified = false
                 let code = crypto.randomBytes(15).toString('hex')
 
                 if (from === 'form') {
