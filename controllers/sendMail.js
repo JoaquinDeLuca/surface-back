@@ -16,10 +16,9 @@ const sendMail = async (mail, code) => {
         GOOGLE_URL
     )
     client.setCredentials({
-        refresh_token:process.env.GOOGLE_REFRESH   
+        refresh_token: GOOGLE_REFRESH 
     })  
     const accessToken = client.getAccessToken()
-   
     const transport = nodemailer.createTransport({ 
         service: "gmail",
         auth: {
@@ -92,6 +91,7 @@ const sendMail = async (mail, code) => {
         `
     }
     await transport.sendMail(mailOptions, (error, response) => { 
+        console.log('enviado')
         if(error){
             console.log(error)
         } else {
