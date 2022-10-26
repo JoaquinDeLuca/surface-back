@@ -8,19 +8,18 @@ mercadopago.configure({
 
 const mercadoPagoController = {
     createml: async (req, res) => {
-
+        const {items} = req.body
+        const product = [];
+        for ( const item of items){
+            product.push({
+                title: item.name,
+                unit_price: Number(item.price),
+                quantity: Number(item.quantity),
+                currency_id: "ARS"
+            })
+        }
         let preference = {
-            items: [
-                {
-                    title: req.body.description,
-                    unit_price: Number(req.body.price),
-                    quantity: Number(req.body.quantity),
-                    id: "2",
-                    category_id: "otris",
-                    currency_id: "ARS",
-                    description: "varios"
-                }
-            ],
+            items: product, 
             back_urls: {
                 "success": "https://surface-ashen.vercel.app/",
                 "failure": "http://localhost:8080/feedback",
