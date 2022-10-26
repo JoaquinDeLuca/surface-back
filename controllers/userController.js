@@ -35,13 +35,13 @@ const userController = {
                 if (from === 'form') {
                     password = bcryptjs.hashSync(password, 10)
                     role = 'user'
-                    buyer = true
+                    buyer = false
 
                     user = await new User({name, lastName, email, password: [password], photo, buyer, role, logged, verified, from: [from], code}).save()
                     sendMail(email, code)
                     res.status(201).json({
-                      message: "User signed up succesfully, please verify your email and log in.",
-                      success: true,
+                        message: "User signed up succesfully, please verify your email and log in.",
+                        success: true,
                     })
                 } else {
                     password = bcryptjs.hashSync(password, 10)
