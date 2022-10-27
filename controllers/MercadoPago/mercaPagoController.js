@@ -14,7 +14,7 @@ const mercadoPagoController = {
             product.push({
                 title: item.name,
                 unit_price: Number(item.price),
-                quantity: Number(item.quantity),
+                quantity: Number(item.cartQuantity),
                 currency_id: "ARS"
             })
         }
@@ -31,7 +31,7 @@ const mercadoPagoController = {
         mercadopago.preferences.create(preference)
             .then(function (response) {
                 res.json({
-                    id: response.body.id,
+                    res: response,
                     url: response.body.init_point
                 });
             }).catch(function (error) {
