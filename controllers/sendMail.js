@@ -34,7 +34,7 @@ const sendMail = async (mail, code) => {
         }
     })
     const mailOptions = {
-        form: GOOGLE_USER,
+        from: GOOGLE_USER,
         to: mail,
         subject: "Verify your SurFace account",
         html:
