@@ -6,14 +6,14 @@
 // stock: { type: Number, required: true },
 
 require('dotenv').config()
-require('./config/database')
+require('./config/dataBase')
 const Buzo = require('./models/Buzos')
 
 
 Buzo.create({
     name: "SURFACE Graffiti Check Shark Full Zip Hoodie",
     jacketClosure: true,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM115007JBKX/0ZXSWM115007JBKX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 500,
     stock: 15,
@@ -21,7 +21,7 @@ Buzo.create({
 {
     name: "X OVO Shark Full Zip Hoodie",
     jacketClosure: true,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM115904JBKX/0ZXSWM115904JBKX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 539,
     stock: 15,
@@ -29,7 +29,7 @@ Buzo.create({
 {
     name: "X OVO Ape Head Pullover Hoodie",
     jacketClosure: false,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM114902JBKX/0ZXSWM114902JBKX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 486,
     stock: 30,
@@ -37,7 +37,7 @@ Buzo.create({
 {
     name: "X Polartec Wide Fit Crewneck",
     jacketClosure: false,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM113008HBGX/0ZXSWM113008HBGX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 283,
     stock: 35,
@@ -45,7 +45,7 @@ Buzo.create({
 {
     name: "X Polartec Wide Fit Full Zip Hoodie",
     jacketClosure: true,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM115008HBGX/0ZXSWM115008HBGX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 363,
     stock: 35,
@@ -53,7 +53,7 @@ Buzo.create({
 {
     name: "SURFACE Multi Label Relaxed Fit Crewneck",
     jacketClosure: false,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM113005JBGX/0ZXSWM113005JBGX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 358,
     stock: 35,
@@ -61,7 +61,7 @@ Buzo.create({
 {
     name: "Crazy Face Full Zip Hoodie",
     jacketClosure: true,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM115010JBKX/0ZXSWM115010JBKX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 480,
     stock: 30,
@@ -69,7 +69,7 @@ Buzo.create({
 {
     name: "Mr. Bathing Ape Crewneck",
     jacketClosure: false,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/MRBSWM113001JBKX/MRBSWM113001JBKX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 353,
     stock: 40,
@@ -77,7 +77,7 @@ Buzo.create({
 {
     name: "X A.P.C. Milo On APC Wide Crewneck",
     jacketClosure: false,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/MRBSWM113001JBKX/MRBSWM113001JBKX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 236,
     stock: 50,
@@ -85,7 +85,7 @@ Buzo.create({
 {
     name: "X A.P.C. Camo Wide Pullover Hoodie",
     jacketClosure: false,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM114903IBGX/0ZXSWM114903IBGX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 290,
     stock: 50,
@@ -93,7 +93,7 @@ Buzo.create({
 {
     name: "Big ABC Camo Shark Full Zip Hoodie.",
     jacketClosure: true,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM115011JPKX/0ZXSWM115011JPKX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 496,
     stock: 25,
@@ -101,7 +101,7 @@ Buzo.create({
 {
     name: "Grid Camo Pullover Hoodie",
     jacketClosure: false,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM114005JBKX/0ZXSWM114005JBKX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 388,
     stock: 28,
@@ -109,7 +109,7 @@ Buzo.create({
 {
     name: "Grid Camo Shark Full Zip Hoodie",
     jacketClosure: true,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM115005JBKX/0ZXSWM115005JBKX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 500,
     stock: 30,
@@ -117,7 +117,7 @@ Buzo.create({
 {
     name: "X Minions Shark Full Zip Hoodie",
     jacketClosure: true,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM115901JGYX/0ZXSWM115901JGYX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 509,
     stock: 25,
@@ -125,7 +125,7 @@ Buzo.create({
 {
     name: "X Minions 1st Camo Minions Shark Full Zip Hoodie",
     jacketClosure: true,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM115902JGRX/0ZXSWM115902JGRX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 509,
     stock: 20,
@@ -133,7 +133,7 @@ Buzo.create({
 {
     name: "Color Camo Tiger Shark Wide Full Zip Double Hoodie",
     jacketClosure: true,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM115021INYX/0ZXSWM115021INYX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 548,
     stock: 30,
@@ -141,7 +141,7 @@ Buzo.create({
 {
     name: "Military Shark Relaxed Fit Full Zip Hoodie",
     jacketClosure: true,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM115019IGRD/0ZXSWM115019IGRD-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 486,
     stock: 35,
@@ -149,7 +149,7 @@ Buzo.create({
 {
     name: "Ape Head One Point Relaxed Fit Pullover Hoodie",
     jacketClosure: false,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM114014IBKX/0ZXSWM114014IBKX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 303,
     stock: 40,
@@ -157,7 +157,7 @@ Buzo.create({
 {
     name: "College hoodie",
     jacketClosure: false,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM14013XDPPX/0ZXSWM14013XDPPX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 270,
     stock: 40,
@@ -165,7 +165,7 @@ Buzo.create({
 {
     name: "X Hajime Sorayama Shark Full Zip Hoodie",
     jacketClosure: true,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM115905HBKX/0ZXSWM115905HBKX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 538,
     stock: 30,
@@ -173,7 +173,7 @@ Buzo.create({
 {
     name: "X Hajime Sorayama Shark Full Zip Hoodie",
     jacketClosure: true,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM115905HBKX/0ZXSWM115905HBKX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 538,
     stock: 30,
@@ -181,7 +181,7 @@ Buzo.create({
 {
     name: "ABC Camo Shark Wide Fit Full Zip Hoodie",
     jacketClosure: true,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM115016IBKX/0ZXSWM115016IBKX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 519,
     stock: 25,
@@ -189,7 +189,7 @@ Buzo.create({
 {
     name: "Tiger Full Zip Hoodie",
     jacketClosure: true,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM115014IBKX/0ZXSWM115014IBKX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 431,
     stock: 30,
@@ -197,7 +197,7 @@ Buzo.create({
 {
     name: "Ape Head One Point Relaxed hooded Jacket",
     jacketClosure: true,
-    description: "",
+    description: "A detailed description of the hoodie goes here.",
     photo: "https://ithk-pro-itmall-item.oss-cn-hongkong.aliyuncs.com/2/product/0ZXSWM11504XHBGX/0ZXSWM11504XHBGX-pdp-1.jpg?x-oss-process=image/resize,m_pad,h_750,w_600/auto-orient,1/quality,Q_80",
     price: 336,
     stock: 40,
